@@ -10,10 +10,11 @@ module.exports = class kSpeedrunning
     }
     async init()
     {
-        // Planned features:
-        // Store saving for maps and records
+        // Feature ideas:
+        // Store saving for records
         // perhaps teleport zones to take you back to last cp
         // removal of afk players from actively watched players
+        // brick generated leaderboard
         
         const debug = this.config['enable-debug'];
         const auth = this.config['authorized-users'];
@@ -345,7 +346,7 @@ module.exports = class kSpeedrunning
         let tick = 0;
         let tickThreshold = 99999;
         
-        function MainLoop() // WIP
+        function MainLoop()
         {
             setTimeout(async () => 
             {
@@ -408,10 +409,10 @@ module.exports = class kSpeedrunning
                                 }
                                 break;
                         }
-                        // perhaps variance for checkpoint size if feasible
+
                         let speedExponent = 0.82;
                         let minCheck = 2;
-                        switch (z.data.speed)  // WIP
+                        switch (z.data.speed)
                         {
                             case 1:
                                 speedExponent = 0.85;
@@ -473,6 +474,7 @@ module.exports = class kSpeedrunning
             }
         }
 
+        
         // ADD LIST MAPS COMMAND
         Omegga.on("join", (player) => 
         {
@@ -486,6 +488,8 @@ module.exports = class kSpeedrunning
         {
             ModifyPlayerArray(true, player.id);
         })
+
+
         Omegga.on("cmd:start", async (name) => 
         {
             let p = playerArray.find(p => p.name == name);
@@ -513,6 +517,7 @@ module.exports = class kSpeedrunning
                 Omegga.whisper(name, "Already in a run, use <code>/stop</> to exit run");
             }
         })
+
         Omegga.on("cmd:stop", (name) => 
         {
             let plr = playerArray.find(p => p.name == name);
@@ -531,30 +536,21 @@ module.exports = class kSpeedrunning
             }
         })
 
-
-
         Omegga.on("cmd:speedrun", async (name, option, value, ...value2) =>
         {
             switch (option) 
             {
                 case 'save':
-                    if (auth.find(c => c.name == name) != undefined) 
+                    let savingZ = [];
+                    for (let z of zones) 
                     {
-                        let savingZ = [];
-                        for (let z of zones) 
+                        if (z.data.modified == 1) 
                         {
-                            if (z.data.modified == 1) 
-                            {
-                                savingZ.push(z);
-                            }
+                            savingZ.push(z);
                         }
-                        await this.store.set('zones', savingZ);
-                        Omegga.whisper(name, "Saved all modified zones");
-                    } else 
-                    {
-                        Omegga.whisper(name, "You are not authorized");
-                        console.log(`${name} tried to run /speedrun save!`);
                     }
+                    await this.store.set('zones', savingZ);
+                    Omegga.whisper(name, "Saved all modified zones");
                     break;
                 case 'edit':
                     if (auth.find(c => c.name == name) != undefined) 
@@ -571,7 +567,7 @@ module.exports = class kSpeedrunning
                                         if (value2 == "") 
                                         {
                                             Omegga.whisper(name, "Write out the command but now with mapname at the end");
-                                            Omegga.whisper(name, "Example <code>/speedrun edit name Fun Map</>");
+                                            Omegga.whisper(name, "Example <code>/speedrun edit name Fun Course</>");
                                         } else 
                                         {
                                             let e = value2.join(" ");
@@ -747,6 +743,7 @@ module.exports = class kSpeedrunning
                         z.data.modified = 1;
                         activeOrders.splice(activeOrders.indexOf(curOrder));
                         Omegga.whisper(name, `${z.name}'s checkpoints are now ordered!`);
+                        Omegga.whisper(name, `Be sure to try editing the name or speed, and save the course using <code>/speedrun save</>!`);
                     }
                 }
             } else 
@@ -755,6 +752,7 @@ module.exports = class kSpeedrunning
                 console.log(`${name} tried to run /speedrun order!`);
             }
         })
+
 
         function ModifyPlayerArray(remove, id) //bool remove: true = remove, false = add (sorry if weird)
         {

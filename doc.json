@@ -86,7 +86,7 @@
         },
         {
             "name": "/speedrun",
-            "description": "A parent command, containing lots of commands inside",
+            "description": "A parent command, containing lots of functionality commands inside",
             "example": "/speedrun",
             "args": 
             [
