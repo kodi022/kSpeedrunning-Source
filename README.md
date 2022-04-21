@@ -29,7 +29,7 @@ But make sure you space the checkpoints out enough to not interfere with eachoth
 
 With multiple checkpoints, be sure you run /zoneorder to ensure people follow the correct path, as the auto generation does not know the correct order
 
-A note about data in courses, they contain a editable speed option that is default to 1. It allows the getposition to run quicker for that course, allowing for accuracy at speeds faster than sprinting
+A note about data in courses, they contain a editable speed option that is default to 1. It allows the getposition to run quicker for that course, hopefully allowing for accuracy at speeds faster than sprinting
 
 ### Commands
 The common commands first,
