@@ -48,20 +48,20 @@
         },
         "checkpoint-size-consideration": 
         {
-            "description": "Lets the position checking consider the zone size for more accurate checking. Can Largely increase CPU usage near checkpoints (may even time out plugin)",
+            "description": "Lets the position checking consider the zone size for more accurate checking. Can Largely increase CPU usage near checkpoints and even time out if not careful",
             "type": "boolean",
-            "default": true
+            "default": false
         },
         "color-whitelist": 
         {
-            "description": "Color pallete indexes that the plugin will use to find zone bricks. Only use if you use zone pieces as map detail, otherwise leave empty to disable. Learn !speedrun:paintindex command to use this",
+            "description": "Color pallete indexes that the plugin will use to find zone bricks. Only use if you use zone pieces as map detail, otherwise leave empty to disable. Learn !speedrun paintindex command to use this",
             "type": "list",
             "itemType": "number",
             "default": []
         },
         "authorized-users": 
         {
-            "description": "For use of restricted commands (some commands require debug and auth)",
+            "description": "For use of restricted commands such as editing courses (some commands require debug and auth)",
             "type": "players",
             "default": []
         },
@@ -92,12 +92,12 @@
             [
                 {
                     "name": "command",
-                    "description": "The command you want to run",
+                    "description": "The secondary you want to run",
                     "required": false
                 },
                 {
                     "name": "sub-command",
-                    "description": "The sub-command you want to run",
+                    "description": "The tertiary command you want to run. may be a input for some commands instead",
                     "required": false
                 },
                 {

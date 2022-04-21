@@ -25,7 +25,7 @@ module.exports = class kSpeedrunning
         const checkpointColor = this.config['zone-checkpoint-color'].split(',');
         const endColor = this.config['zone-end-color'].split(',');
         const brickMat = this.config['zone-brick-material'].split(',');
-        const zoneThickness = this.config['zone-brick-thiccness'];
+        const zoneThickness = Clamp(this.config['zone-brick-thiccness'], 1, 5);
         const sizeConsideration = this.config['checkpoint-size-consideration'];
 
         let zones = [];
@@ -355,7 +355,7 @@ module.exports = class kSpeedrunning
                     if (p.active && p.data.nextUpdate <= tick) 
                     {
                         let distance;
-                        let pos = await Omegga.getPlayer(p.id).getPosition();
+                        let pos = await Omegga.getPlayer(p.name).getPosition();
                         let z = zones.find(z => z.name == p.data.currentMap);
                         let segment = p.data.checkpoint.findIndex(p => p === 0);
                         switch (sequential)
@@ -474,7 +474,7 @@ module.exports = class kSpeedrunning
             }
         }
 
-        
+
         // ADD LIST MAPS COMMAND
         Omegga.on("join", (player) => 
         {
@@ -636,7 +636,7 @@ module.exports = class kSpeedrunning
                     }
                     break;
                 case 'debug':
-                    switch (value2) 
+                    switch (value) 
                     {
                         case 'zoneinfo':
                             if (AuthDebug(name)) 
@@ -695,8 +695,10 @@ module.exports = class kSpeedrunning
                         default:
                             Omegga.whisper(name, "Options are (mapcount, zoneinfo, clearbricks, clearsavedmaps)");
                             Omegga.whisper(name, "Example <code>/speedrun debug zoneinfo</>");
+                            console.log(value2)
                             break;
                     }
+                    break;
                 default:
                     Omegga.whisper(name, "Options are (save, edit, paintindex, regen, debug)");
                     Omegga.whisper(name, "Example <code>/speedrun edit</>");
