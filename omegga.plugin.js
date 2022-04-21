@@ -27,7 +27,11 @@ module.exports = class kSpeedrunning
         const brickMat = this.config['zone-brick-material'].split(',');
         const zoneThickness = Clamp(this.config['zone-brick-thiccness'], 1, 5);
         const sizeConsideration = this.config['checkpoint-size-consideration'];
-
+        const saveOwner = {
+            name: saveOwnerName,
+            id: 'ffffffff-ffff-ffff-ffff-ffffffff097b'
+        };
+        
         let zones = [];
         let storeZones = await this.store.get('zones') || [];
         let error = false;
@@ -47,10 +51,6 @@ module.exports = class kSpeedrunning
             const startBrick = save.brick_assets.indexOf("B_Rook");
             const endBrick = save.brick_assets.indexOf("B_Knight");
             Omegga.clearBricks('ffffffff-ffff-ffff-ffff-ffffffff097b', {quiet: true});
-            const saveOwner = {
-                name: saveOwnerName,
-                id: 'ffffffff-ffff-ffff-ffff-ffffffff097b'
-            };
             let zonesBRS = {
                 author: saveOwner,
                 brick_assets: ['PB_DefaultMicrobrick'],
