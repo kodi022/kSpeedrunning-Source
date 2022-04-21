@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "brs-js": "^2.0.0",
+    "pretty-ms": "^7.0.1"
+  }
+}

@@ -1,0 +1,111 @@
+{
+    "name": "kSpeedrunning",
+    "description": "Experimenting with speedrunning plugin",
+    "author": "Kodi022",
+    "config": 
+    {
+        "bricks-owner-name": 
+        {
+            "description": "kSpeedrunning's generated bricks owner name (requires server restart to apply)",
+            "type": "string",
+            "default": "Speedrun-zone"
+        },
+        "zone-start-color": 
+        {
+            "description": "Color of start zone bricks (rgb, max 255)",
+            "type": "string",
+            "default": "50,255,50"
+        },
+        "zone-checkpoint-color": 
+        {
+            "description": "Color of checkpoint zone bricks (rgb, max 255)",
+            "type": "string",
+            "default": "170,170,170"
+        },
+        "zone-end-color": 
+        {
+            "description": "Color of end zone bricks (rgb, max 255)",
+            "type": "string",
+            "default": "255,50,50"
+        },
+        "zone-brick-material": 
+        {
+            "description": "Material and intensity of zone bricks. First number is material (0-glass, 1-glow, 2-hologram). Second number is intensity (1-10)",
+            "type": "string",
+            "default": "1,2"
+        },
+        "zone-brick-thiccness": 
+        {
+            "description": "Thickness of zone bricks (1 = 2x, 2 = 4x, etc.. max 5)",
+            "type": "number",
+            "default": 1
+        },
+        "force-checkpoint-sequence": 
+        {
+            "description": "Force passing checkpoints in order. ex. having to pass (1,2,3,4,end) or being able to go (1,4,2,3,end). Could lessen CPU usage slightly. Also requires manual checkpoint ordering",
+            "type": "boolean",
+            "default": false
+        },
+        "checkpoint-size-consideration": 
+        {
+            "description": "Lets the position checking consider the zone size for more accurate checking. Can Largely increase CPU usage near checkpoints (may even time out plugin)",
+            "type": "boolean",
+            "default": true
+        },
+        "color-whitelist": 
+        {
+            "description": "Color pallete indexes that the plugin will use to find zone bricks. Only use if you use zone pieces as map detail, otherwise leave empty to disable. Learn !speedrun:paintindex command to use this",
+            "type": "list",
+            "itemType": "number",
+            "default": []
+        },
+        "authorized-users": 
+        {
+            "description": "For use of restricted commands (some commands require debug and auth)",
+            "type": "players",
+            "default": []
+        },
+        "enable-debug": 
+        {
+            "description": "Enables debug commands (all debug commands require auth)",
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "commands": 
+    [
+        {
+            "name": "/start",
+            "description": "Run in a start zone to start your run",
+            "example": "/start"
+        },
+        {
+            "name": "/stop",
+            "description": "Run while in a run to end and return to it's start zone",
+            "example": "/stop"
+        },
+        {
+            "name": "/speedrun",
+            "description": "A parent command, containing lots of commands inside",
+            "example": "/speedrun",
+            "args": 
+            [
+                {
+                    "name": "command",
+                    "description": "The command you want to run",
+                    "required": false
+                },
+                {
+                    "name": "sub-command",
+                    "description": "The sub-command you want to run",
+                    "required": false
+                },
+                {
+                    "name": "value",
+                    "description": "The value used by certain commands/sub-commands",
+                    "required": false
+                }
+            ]
+        }
+    ]
+}
